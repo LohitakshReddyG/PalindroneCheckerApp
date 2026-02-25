@@ -1,4 +1,4 @@
-
+import java.util.Scanner;
 public class PalindroneCheckerApp {
     static void main(String[] args) {
         String input = "radar";
