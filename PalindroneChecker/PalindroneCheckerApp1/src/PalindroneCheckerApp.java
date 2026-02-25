@@ -1,20 +1,21 @@
 
 public class PalindroneCheckerApp {
     static void main(String[] args) {
-        System.out.println("Welcome to Palindrome Checker App Management System !!!");
+        String input = "radar";
+        System.out.println("Input : " + input);
+        char[] chars = input.toCharArray();
+        int start = 0;
+        int end = chars.length - 1;
+        boolean isPalindrome = true;
+        while (start < end) {
 
-        String str = "madam";
-        boolean ispalindrome = true;
-        for (int i = 0; i <= str.length() / 2; i++) {
-            if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
-                ispalindrome = false;
+            if (chars[start] != chars[end]) {
+                isPalindrome = false;
                 break;
             }
+            start++;
+            end--;
         }
-        if (ispalindrome) {
-            System.out.println(str + " is palindrome.");
-        } else {
-            System.out.println(str + " is not a palindrome");
-        }
+        System.out.println("Is Palindrome? : " + isPalindrome);
     }
 }
