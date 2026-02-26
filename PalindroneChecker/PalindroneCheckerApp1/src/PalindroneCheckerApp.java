@@ -1,29 +1,66 @@
 import java.util.*;
 
 public class PalindroneCheckerApp {
-    static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Input : ");
-        String input = scanner.nextLine();
-
-        // Create Deque
-        Deque<Character> deque = new LinkedList<>();
-
-        // Insert characters into deque
-        for (char c : input.toCharArray()) {
-            deque.addLast(c);
+    static class Node {
+        char data;
+        Node next;
+        Node(char data) {
+            this.data = data;
+            this.next = null;
         }
-        boolean isPalindrome = true;
-        while (deque.size() > 1) {
-            char front = deque.removeFirst();
-            char rear = deque.removeLast();
-            if (front != rear) {
-                isPalindrome = false;
-                break;
+    }
+    static Node buildList(String input) {
+        Node head = null, tail = null;
+        for (char c : input.toCharArray()) {
+            Node newNode = new Node(c);
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
+        return head;
+    }
+    static Node reverse(Node head) {
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            Node nextTemp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = nextTemp;
+        }
+        return prev;
+    }
+    static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) return true;
+        Node slow = head;
+        Node fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        Node secondHalf = reverse(slow);
 
-        System.out.println("Is Palindrome? : " + isPalindrome);
-
+        Node firstHalf = head;
+        Node temp = secondHalf;
+        while (temp != null) {
+            if (firstHalf.data != temp.data) {
+                return false;
+            }
+            firstHalf = firstHalf.next;
+            temp = temp.next;
+        }
+        return true;
+    }
+    void main (String[]args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+        Node head = buildList(input);
+        boolean result = isPalindrome(head);
+        System.out.println("Input : " + input);
+        System.out.println("Is Palindrome? : " + result);
     }
 }
