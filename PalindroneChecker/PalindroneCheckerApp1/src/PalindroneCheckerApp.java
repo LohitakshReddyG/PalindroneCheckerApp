@@ -1,13 +1,9 @@
 import java.util.*;
 public class PalindroneCheckerApp {
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
         System.out.print("Input : ");
         String input = sc.nextLine();
-
-        // Inject strategy at runtime
         PalindromeStrategy strategy = new StackStrategy();
 
         boolean result = strategy.check(input);
@@ -25,19 +21,14 @@ class StackStrategy implements PalindromeStrategy {
     public boolean check(String input) {
 
         Stack<Character> stack = new Stack<>();
-
-        // Push characters into stack
         for (char c : input.toCharArray()) {
             stack.push(c);
         }
-
-        // Compare by popping
         for (char c : input.toCharArray()) {
             if (c != stack.pop()) {
                 return false;
             }
         }
-
         return true;
     }
 }
