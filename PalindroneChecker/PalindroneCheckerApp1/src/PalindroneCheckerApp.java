@@ -1,5 +1,7 @@
-import java.util.*;
+import java.util.Scanner;
+
 public class PalindroneCheckerApp {
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -7,37 +9,30 @@ public class PalindroneCheckerApp {
         System.out.print("Input : ");
         String input = sc.nextLine();
 
-        // Inject strategy at runtime
-        PalindromeStrategy strategy = new StackStrategy();
-
-        boolean result = strategy.check(input);
-
+        PalindromeService service = new PalindromeService();
+        boolean result = service.checkPalindrome(input);
         System.out.println("Is Palindrome? : " + result);
-
+        sc.close();
     }
 }
-interface PalindromeStrategy {
-    boolean check(String input);
-}
 
-class StackStrategy implements PalindromeStrategy {
 
-    public boolean check(String input) {
+class PalindromeService {
 
-        Stack<Character> stack = new Stack<>();
+    public boolean checkPalindrome(String input) {
 
-        // Push characters into stack
-        for (char c : input.toCharArray()) {
-            stack.push(c);
-        }
+        int start = 0;
+        int end = input.length() - 1;
 
-        // Compare by popping
-        for (char c : input.toCharArray()) {
-            if (c != stack.pop()) {
+        while (start < end) {
+            if (input.charAt(start) != input.charAt(end)) {
                 return false;
             }
+            start++;
+            end--;
         }
 
         return true;
     }
 }
+
