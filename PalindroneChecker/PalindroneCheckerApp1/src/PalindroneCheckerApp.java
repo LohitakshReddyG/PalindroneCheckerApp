@@ -3,14 +3,13 @@ import java.util.Scanner;
 public class PalindroneCheckerApp {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-
         System.out.print("Input : ");
         String input = sc.nextLine();
+        PalindromeStrategy strategy = new StackStrategy();
 
-        PalindromeService service = new PalindromeService();
-        boolean result = service.checkPalindrome(input);
+        boolean result = strategy.check(input);
+
         System.out.println("Is Palindrome? : " + result);
         sc.close();
     }
@@ -19,19 +18,17 @@ public class PalindroneCheckerApp {
 
 class PalindromeService {
 
-    public boolean checkPalindrome(String input) {
-
-        int start = 0;
-        int end = input.length() - 1;
-
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+        Stack<Character> stack = new Stack<>();
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
             start++;
             end--;
         }
-
         return true;
     }
 }
