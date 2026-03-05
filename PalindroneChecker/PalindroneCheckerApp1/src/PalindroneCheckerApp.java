@@ -21,6 +21,24 @@ public class PalindroneCheckerApp {
         while (start < end) {
             if (Character.toLowerCase(input.charAt(start)) !=
                     Character.toLowerCase(input.charAt(end))) {
+        PalindromeStrategy strategy = new StackStrategy();
+
+        boolean result = strategy.check(input);
+
+        System.out.println("Is Palindrome? : " + result);
+        sc.close();
+    }
+}
+
+
+class PalindromeService {
+
+        Stack<Character> stack = new Stack<>();
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
             start++;
